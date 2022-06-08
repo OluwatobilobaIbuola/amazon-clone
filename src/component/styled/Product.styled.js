@@ -12,6 +12,7 @@ export const ProductStyled = styled.div`
     width:100%;
     max-height: 400px;
     min-width: 100px;
+    transition: 1s;
     img{
         width: 100%;
         max-height: 200px;

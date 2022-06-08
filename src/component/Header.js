@@ -3,11 +3,18 @@ import SearchIcon from '@mui/icons-material/Search';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import { Link } from "react-router-dom"
 import { useStateValue } from '../StateProvider.js';
+import { auth } from "../firebase"
 import { BasketCount, OptionBasket, OptionOne, Optiontwo, Options, Nav, Search, Logo, HeaderStyled} from "./styled/Header.styled"
 
 export default function Header() {
 
-    const [{basket}, dispatch] = useStateValue();
+    const [{user, basket}, dispatch] = useStateValue();
+
+    const handleAuthenticaton = () => {
+        if (user) {
+            auth.signOut();
+        }
+    }
 
   return (
     <HeaderStyled>
@@ -25,14 +32,10 @@ export default function Header() {
             </div>
         </Search>
         <Nav>  
-            <Link to="/login">
-                <Options>
-                    <OptionOne>
-                        Hello Guest
-                    </OptionOne>
-                    <Optiontwo>
-                        Sign In
-                    </Optiontwo>
+            <Link to={!user && "/login"}>
+                <Options onClick={handleAuthenticaton}>
+                    <OptionOne>Hello Guest</OptionOne>
+                    <Optiontwo>{user ? 'Sign Out' : 'Sign In'}</Optiontwo>
                 </Options>
             </Link> 
             <Options>

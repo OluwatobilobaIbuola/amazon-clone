@@ -21,6 +21,12 @@ const reducer = (state, action) => {
         ...state,
         basket: state.basket.filter((item, index) => index !== action.id)
       };
+    
+    case "SET_USER":
+      return {
+        ...state,
+        user: action.user
+      }
     default:
       return state;
   };

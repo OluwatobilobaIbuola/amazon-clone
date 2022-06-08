@@ -1,21 +1,22 @@
 import React, { useState } from 'react'
 import { LoginStyled, LoginText, LoginContainer } from "./styled/Login.styled"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import {db, auth, _createUserWithEmailAndPassword, _signInWithEmailAndPassword } from "../firebase"
-import { signInWithEmailAndPassword } from "firebase/auth";
+
 
 
 function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  
+  const navigate = useNavigate()
 
   const signIn = e => {
     e.preventDefault();
  
-    signInWithEmailAndPassword(auth, email, password)
+    _signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       // Signed in 
+      navigate("/")
       const user = userCredential.user;
       console.log(user);
     })
@@ -31,6 +32,7 @@ function Login() {
     
     _createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
+      navigate("/")
       // Signed in 
       const user = userCredential.user;
       console.log(user);

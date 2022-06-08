@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from 'firebase/firestore/lite';
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyA6qIElbDJQOYJ_uHQOfIINtNTMAt9v52E",
@@ -18,14 +18,7 @@ const app = initializeApp(firebaseConfig);
 export const auth = getAuth(app);
 export const db = getFirestore(app);
 export const _createUserWithEmailAndPassword = createUserWithEmailAndPassword;
-export const _signInWithEmailAndPassword = signInWithEmailAndPassword ;
+export const _signInWithEmailAndPassword = signInWithEmailAndPassword;
+export const _onAuthStateChanged = onAuthStateChanged;
 
 
-// // Get a list of cities from your database
-// async function getUsers(db) {
-//   const citiesCol = collection(db, 'users');
-//   const citySnapshot = await getDocs(citiesCol);
-//   const cityList = citySnapshot.docs.map(doc => doc.data());
-//   return cityList;
-// }
-// console.log(await getUsers(db))
