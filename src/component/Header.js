@@ -34,25 +34,19 @@ export default function Header() {
         <Nav>  
             <Link to={!user && "/login"}>
                 <Options onClick={handleAuthenticaton}>
-                    <OptionOne>Hello Guest</OptionOne>
+                    <OptionOne>Hello {!user? "Guest" : user.email}</OptionOne>
                     <Optiontwo>{user ? 'Sign Out' : 'Sign In'}</Optiontwo>
                 </Options>
             </Link> 
+            <Link to="/orders">
+                <Options>
+                    <OptionOne>Returns</OptionOne>
+                    <Optiontwo>Orders</Optiontwo>
+                </Options>
+            </Link>
             <Options>
-                <OptionOne>
-                    Returns
-                </OptionOne>
-                <Optiontwo>
-                    Orders
-                </Optiontwo>
-            </Options>
-            <Options>
-                <OptionOne>
-                    Your
-                </OptionOne>
-                <Optiontwo>
-                    Prime
-                </Optiontwo>
+                <OptionOne>Your</OptionOne>
+                <Optiontwo>Prime</Optiontwo>
             </Options>
             <Link to="/checkout">
                 <OptionBasket>

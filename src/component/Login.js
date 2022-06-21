@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { LoginStyled, LoginText, LoginContainer } from "./styled/Login.styled"
 import { Link, useNavigate } from "react-router-dom"
-import {db, auth, _createUserWithEmailAndPassword, _signInWithEmailAndPassword } from "../firebase"
+import { auth, _createUserWithEmailAndPassword, _signInWithEmailAndPassword } from "../firebase"
 
 
 

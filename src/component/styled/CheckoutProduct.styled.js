@@ -13,17 +13,22 @@ export const CheckoutProductDiv = styled.div`
 export const COProductInfo = styled.div`
     padding-left: 20px;
     button{
-        background: #f0c14b;
-        border: 1px solid;
+        background-color: #f0c14b;
+        border: 1px solid #f0c14b;
         margin-top: 10px;
-        border-color: #a88734 #9c7e31 #846a29;
-        color: #111;
+        padding:0.5em;
+        border-radius:4px;
+        transition: 0.4s all ease-in-out;
+        &:hover{
+            opacity:0.9;
+            background-color: transparent;
+            border: 1px solid #f0c14b;
+        }
     }
 ` 
 
-
 export const COTitle = styled.div`
-    font-size: 2vmin;
+    font-size: 0.8rem;
     font-weight: 800;
 `
   

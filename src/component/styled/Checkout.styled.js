@@ -5,6 +5,10 @@ export const CheckoutStyled = styled.div`
     padding:20px;
     background-color: white;
     height: max-content; 
+    @media(max-width: 768px){
+        flex-direction:column;
+        row-gap:0.8em;
+    }
 `
 export const CheckoutTitle = styled.h2`
     border-bottom: 2px solid gray;

@@ -1,3 +1,4 @@
+// eslint-disable-next-line
 import styled from "styled-components"
 
 export const ProductStyled = styled.div`
@@ -10,9 +11,14 @@ export const ProductStyled = styled.div`
     margin: 10px;
     padding: 20px;
     width:100%;
+    min-width:100px;
     max-height: 400px;
-    min-width: 100px;
     transition: 1s;
+    border-radius: 8px;
+    @media (max-width:768px){
+        width:90%;
+        margin-inline:auto;
+    }
     img{
         width: 100%;
         max-height: 200px;
@@ -21,14 +27,20 @@ export const ProductStyled = styled.div`
     }
     button{
         background-color: #f0c14b;
-        border: 1px solid;
+        border: 1px solid #f0c14b;
         margin-top: 10px;
-        border: #a88734 #9c7e31 #846a29;
-        color: #111;
+        padding:0.5em;
+        border-radius:4px;
+        transition: 0.4s all ease-in-out;
+        &:hover{
+            opacity:0.9;
+            background-color: transparent;
+            border: 1px solid #f0c14b;
+        }
     }
 `
 export const ProductTitle = styled.p`
-    font-size: 2vmin;
+    font-size: 0.8rem;
 `
 export const Rating = styled.div`
      display: flex;
@@ -37,7 +49,6 @@ export const Price = styled.div`
     margin-top: 5px;
 `
 export const ProductInfo = styled.div`
-    height: 100px;
     margin-bottom: 15px;
     width:80%;
 `

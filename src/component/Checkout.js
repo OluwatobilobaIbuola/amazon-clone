@@ -14,11 +14,11 @@ function Checkout() {
           <div>
             <h3>Hello, {user?.email}</h3>
             <CheckoutTitle>Your shopping basket</CheckoutTitle>
-            {basket.map((item, index) => { return (
-            <CheckoutProduct
-            id={index}
-            item={item}
-            />)})}
+              {basket.map((item, index) => { return (
+              <CheckoutProduct
+              id={index}
+              item={item}
+              />)})}
           </div>
         </div>
         <div>

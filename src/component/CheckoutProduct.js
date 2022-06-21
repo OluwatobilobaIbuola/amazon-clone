@@ -6,6 +6,8 @@ function CheckoutProduct(props) {
     const [{basket}, dispatch] = useStateValue();
     const {item: {image, title, price, rating}} = props;
     const {id} = props;
+    const {hideButton} = props;
+
     const removeFromBasket = (id) => {
         dispatch({
             type:'REMOVE_FROM_BASKET',
@@ -30,7 +32,9 @@ function CheckoutProduct(props) {
                     <span>⭐</span>
                 ))}
             </div>
-            <button onClick={() => {removeFromBasket(id)}}>Remove from Basket</button>
+            {!hideButton && 
+                <button onClick={ () => {removeFromBasket(id)}}>Remove from Basket</button>
+            }
         </COProductInfo>
     </CheckoutProductDiv>
   )

@@ -20,7 +20,9 @@ export const Search = styled.div`
     flex:1;
     align-items: center;
     border-radius: 24px;
-
+    @media (max-width: 768px){
+        display:none;
+    }
     input{
         height: 12px;
         padding: 10px;
@@ -36,6 +38,9 @@ export const Search = styled.div`
 export const Nav = styled.nav`
     display: flex;
     justify-content: space-evenly;
+    @media (max-width: 768px){
+        margin-left:auto
+    }
 `
 
 export const Options = styled.div`

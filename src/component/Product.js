@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useStateValue } from "../StateProvider";
 import { ProductInfo, Price, Rating, ProductTitle, ProductStyled} from "./styled/Product.styled"
 
-function Product({id, title, image, price, rating}) {
+function Product({title, price, rating, image}) {
   const [{basket}, dispatch] = useStateValue();
   const [isHover, setIsHover] = useState(false)
   console.log(basket)
@@ -11,12 +11,12 @@ function Product({id, title, image, price, rating}) {
     dispatch({
       type: "ADD_TO_BASKET",
       item: {
-        id: id,
-        title: title,
-        image: image,
-        price: price,
-        rating: rating
+        title:title,
+        price:price,
+        rating:rating,
+        image:image
       }
+      
     });
   };
   const hoverEffect = () => {
