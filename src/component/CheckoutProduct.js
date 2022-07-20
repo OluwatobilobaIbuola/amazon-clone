@@ -1,12 +1,13 @@
 import React from "react"
 import { useStateValue } from "../StateProvider.js"
-import { COTitle, COProductInfo, CheckoutProductDiv } from "./styled/CheckoutProduct.styled"
+import { CoDesc, CoTitle, CoProductInfo, CheckoutProductDiv } from "./styled/CheckoutProduct.styled"
 
 function CheckoutProduct(props) {
     const [{basket}, dispatch] = useStateValue();
-    const {item: {image, title, price, rating}} = props;
+    const {item: {image, title, price, rating, description}} = props;
     const {id} = props;
     const {hideButton} = props;
+    const {hideDescription} = props
 
     const removeFromBasket = (id) => {
         dispatch({
@@ -17,16 +18,18 @@ function CheckoutProduct(props) {
     }
 
   return (
+    <>
     <CheckoutProductDiv>
         <img src={image} alt={title} />
-        <COProductInfo>
-            <COTitle>{title}</COTitle>
+        <CoProductInfo>
+            <CoTitle>{title}</CoTitle>
+            {!hideDescription && <CoDesc>{description}</CoDesc>}
             <p>
                 <small>$</small>
                 <strong>{price}</strong>
             </p>
             <div>
-                {Array(rating)
+                {Array(Math.floor(rating))
                 .fill()
                 .map((_, i) => (
                     <span>⭐</span>
@@ -35,8 +38,10 @@ function CheckoutProduct(props) {
             {!hideButton && 
                 <button onClick={ () => {removeFromBasket(id)}}>Remove from Basket</button>
             }
-        </COProductInfo>
+        </CoProductInfo>
     </CheckoutProductDiv>
+    <hr/>
+    </>
   )
 }
 

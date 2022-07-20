@@ -1,19 +1,19 @@
 import React from 'react'
 import SearchIcon from '@mui/icons-material/Search';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
-import { Link } from "react-router-dom"
+import { Link, useNavigate} from "react-router-dom"
 import { useStateValue } from '../StateProvider.js';
 import { auth } from "../firebase"
 import { BasketCount, OptionBasket, OptionOne, Optiontwo, Options, Nav, Search, Logo, HeaderStyled} from "./styled/Header.styled"
 
 export default function Header() {
-
+    const navigate = useNavigate();
     const [{user, basket}, dispatch] = useStateValue();
 
     const handleAuthenticaton = () => {
         if (user) {
             auth.signOut();
-        }
+        };
     }
 
   return (
@@ -50,7 +50,7 @@ export default function Header() {
             </Options>
             <Link to="/checkout">
                 <OptionBasket>
-                    <AddShoppingCartIcon/>
+                    <AddShoppingCartIcon style={{fontSize:"1.2em"}}/>
                     <BasketCount>{basket?.length}</BasketCount>
                 </OptionBasket>
             </Link>

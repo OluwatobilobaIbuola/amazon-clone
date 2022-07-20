@@ -2,8 +2,9 @@ import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyled = createGlobalStyle`
     * {
-    margin: 0;
-    padding: 0;
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
     }
     body {
         background-color: rgb(234, 237, 237);
@@ -12,6 +13,13 @@ export const GlobalStyled = createGlobalStyle`
     }
     a {
         text-decoration: none;
+    }
+    hr{
+        border-top: 1px solid $clr-accent;
+        border-bottom-style:none;
+        border-left-style: none;
+        border-right-style: none;
+        margin:2rem 0;
     }
 `
 

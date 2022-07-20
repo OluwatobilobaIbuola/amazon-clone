@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
 import CheckoutProduct from './CheckoutProduct'
 import { useStateValue } from '../StateProvider'
-import "./PaymentStyle.css"
+import { Value, PaymentDetails, FlexLarge, FlexSmall, PaymentSection, PaymentContainer, PaymentStyled } from "./styled/PaymentStyle"
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
 import CurrencyFormat from "react-currency-format";
 import { getBasketTotal } from "../reducer";
@@ -80,44 +80,45 @@ function Payment() {
     }
 
   return (
-        <div className='payment'>
-            <div className='payment__container'>
+        <PaymentStyled>
+            <PaymentContainer>
                 <h1>
                     Checkout (
                         <Link to="/checkout">{basket?.length} items</Link>
                         )
                 </h1>
                 {/* Payment section - delivery address */}
-                <div className='payment__section'>
-                    <div className='payment__title'>
+                <PaymentSection>
+                    <FlexSmall>
                         <h3>Delivery Address</h3>
-                    </div>
-                    <div className='payment__address'>
+                    </FlexSmall>
+                    <FlexLarge>
                         <p>{user?.email}</p>
                         <p>123 React Lane</p>
                         <p>Los Angeles, CA</p>
-                    </div>
-                </div>
+                    </FlexLarge>
+                </PaymentSection>
 
                 {/* Payment section - Review Items */}
-                <div className='payment__section'>
-                    <div className='payment__title'>
+                <PaymentSection>
+                    <FlexSmall>
                         <h3>Review items and delivery</h3>
-                    </div>
-                    <div className='payment__items'>
+                    </FlexSmall>
+                    <FlexLarge>
                         {basket.map((item, index) => { return (
                         <CheckoutProduct
                         id={index}
                         item={item}
+                        hideDescription
                         />)})}
-                    </div>
-                </div>
+                    </FlexLarge>
+                </PaymentSection>
                 {/* payment section - stripe */}
-                <div className='payment__section'>
-                    <div className="payment__title">
+                <PaymentSection>
+                    <FlexSmall>
                         <h3>Payment Method</h3>
-                    </div>
-                    <div className="payment__details">
+                    </FlexSmall>
+                    <PaymentDetails>
                             {/* Stripe magic will go */}
 
                             <form onSubmit={handleSubmit}>
@@ -125,7 +126,7 @@ function Payment() {
                                 <div className='payment__priceContainer'>
                                     <CurrencyFormat
                                         renderText={(value) => (
-                                            <h3>Order Total: {value}</h3>
+                                            <Value>Order Total: {value}</Value>
                                         )}
                                         decimalScale={2}
                                         value={getBasketTotal(basket)}
@@ -139,10 +140,10 @@ function Payment() {
                                 </div>
                                 {error && <div>{error}</div>}
                             </form>
-                    </div>
-                </div>
-            </div>
-        </div>
+                    </PaymentDetails>
+                </PaymentSection>
+            </PaymentContainer>
+        </PaymentStyled>
     )
 }
 

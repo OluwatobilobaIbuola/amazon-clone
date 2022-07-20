@@ -1,50 +1,78 @@
-import React, { useState } from 'react'
-import { useStateValue } from "../StateProvider";
+import React, { useState, useEffect } from 'react'
 import { ProductInfo, Price, Rating, ProductTitle, ProductStyled} from "./styled/Product.styled"
 
-function Product({title, price, rating, image}) {
-  const [{basket}, dispatch] = useStateValue();
-  const [isHover, setIsHover] = useState(false)
-  console.log(basket)
-  const addToBasket = () => {
-    // dispatch the item to data layer
-    dispatch({
-      type: "ADD_TO_BASKET",
-      item: {
-        title:title,
-        price:price,
-        rating:rating,
-        image:image
-      }
-      
-    });
-  };
+function Product({title, rating, image, price, description, hideElement, catgyTitle, addToBasket}) {
+
+  const [isHover, setIsHover] = useState(false);
+  const [browserWidth, setBrowserWidth] = useState(window.innerWidth);
+
+  useEffect(() =>{
+    console.log("i re-render")
+    window.addEventListener("resize", () => {
+      const width = window.innerWidth;
+      setBrowserWidth(width);
+      console.log("browserwidth after render >>> ", browserWidth);
+    }) 
+  }, [])
+
+ 
   const hoverEffect = () => {
     setIsHover(true)
-  }
+  };
   const hoverEffectOut = () => {
     setIsHover(false)
-  }
+  };
 
   return (
-    <ProductStyled onMouseLeave={hoverEffectOut} onMouseEnter={hoverEffect}
-        style= {isHover? {boxShadow:"0px 1px 2px 2px rgba(0,0,0,0.2)",
-        transform: "scale(1.015)"}: null }>
-      <ProductInfo>   
-        <ProductTitle>{title}</ProductTitle>
-        <p>
+    <>
+    {browserWidth > 768 ? (
+    <ProductStyled style={{boxShadow: isHover? "0 0 8px 0 rgba(0,0,0,0.7)" : null}}
+    onMouseLeave={hoverEffectOut} onMouseEnter={hoverEffect}
+    >
+      <ProductInfo>
+        {hideElement ? <h5>{catgyTitle}</h5> : <ProductTitle>{title}</ProductTitle>}   
+        {!hideElement &&
+          <p>
             <small>$</small>
-            <Price>{price}</Price>
-        </p>
+            <Price>{price || null}</Price>
+          </p>
+        }
         <Rating>
-            {Array(rating).fill()
-            .map((_, i) => 
-            ( <span>⭐</span>))}
+          {Array(Math.floor(rating || null)).fill()
+          .map((_, i) => 
+          ( <span>⭐</span>))}
         </Rating>
       </ProductInfo>
-      <img src= {image} alt=""/>
-      <button onClick={addToBasket}>Add to basket</button>
+      <img src={image} alt=""/>
+      {(!hideElement &&  browserWidth > 768) && <button onClick={() => addToBasket(title, image, price, rating, description)}>Add to basket</button>}
+      {hideElement && <p>Shop now</p>}
     </ProductStyled>
+    ) : (
+      <ProductStyled style={{boxShadow: isHover? "0 0 8px 0 rgba(0,0,0,0.7)" : null}}
+    onClick={() => addToBasket(title, image, price, rating, description)}
+    onMouseLeave={hoverEffectOut} onMouseEnter={hoverEffect}
+    >
+      <ProductInfo>
+        {hideElement ? <h5>{catgyTitle}</h5> : <ProductTitle>{title}</ProductTitle>}   
+        {!hideElement &&
+          <p>
+            <small>$</small>
+            <Price>{price || null}</Price>
+          </p>
+        }
+        <Rating>
+          {Array(Math.floor(rating || null)).fill()
+          .map((_, i) => 
+          ( <span>⭐</span>))}
+        </Rating>
+      </ProductInfo>
+      <img src={image} alt=""/>
+      {(!hideElement &&  browserWidth > 768) && <button onClick={() => addToBasket(title, image, price, rating, description)}>Add to basket</button>}
+      {hideElement && <p>Shop now</p>}
+    </ProductStyled>
+    )
+    }
+    </>
   )
 }
 

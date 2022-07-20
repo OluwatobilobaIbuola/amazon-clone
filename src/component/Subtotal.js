@@ -1,5 +1,5 @@
 import React from 'react'
-import { Gift, SubtotalStyled } from "./styled/Subtotal.styled"
+import { SubtotalTag, Gift, SubtotalStyled, Value } from "./styled/Subtotal.styled"
 import CurrencyFormat from 'react-currency-format'
 import { useStateValue } from '../StateProvider.js'
 import { getBasketTotal } from '../reducer.js'
@@ -11,23 +11,23 @@ function Subtotal() {
   const navigate = useNavigate();
   return (
     <SubtotalStyled>
-       <CurrencyFormat 
-       renderText={(value) => (
-           <>
-               <p>
-                    Subtotal ({basket?.length} items): <strong>{value}</strong>
-               </p>
-               <Gift>
-                   <input type="checkbox"/> This order contains a gift 
-               </Gift>
-           </>
-       )}
-       decimalScale={2}
-       value={getBasketTotal(basket)} 
-       displayType={'text'} 
-       thousandSeparator={true} 
-       prefix={'$'} />
-       <button onClick={e => navigate("/payment")}>Proceed to checkout</button>
+      <CurrencyFormat 
+      renderText= {(value) => (
+          <>
+              <SubtotalTag>
+                  Subtotal ({basket?.length} items): <Value>{value}</Value>
+              </SubtotalTag>
+              <Gift>
+                  <input type="checkbox"/> This order contains a gift 
+              </Gift>
+          </>
+      )}
+      decimalScale={2}
+      value={getBasketTotal(basket)} 
+      displayType={'text'} 
+      thousandSeparator={true} 
+      prefix={'$'} />
+      <button onClick={e => navigate("/payment")}>Proceed to checkout</button>
     </SubtotalStyled>
   )
 }

@@ -1,9 +1,9 @@
 import React, {useState, useEffect}from 'react'
 import {db} from "../firebase"
-import { doc, onSnapshot, collection, orderBy} from "firebase/firestore";
+import { onSnapshot, collection, orderBy, query} from "firebase/firestore";
 import { useStateValue } from "../StateProvider";
 import Order from "./Order"
-import "./Orders.css"
+import { OrdersStyled } from "./styled/OrdersStyled"
 
 function Orders() {
     const [orders, setOrders] = useState([]);
@@ -12,7 +12,7 @@ function Orders() {
     useEffect( () => {
         if(user){
           
-            const q = collection(db, "users", user?.uid, "orders");
+            const q = query(collection(db, "users", user?.uid, "orders"), orderBy('created', "desc"));
             onSnapshot( q, querySnapshot => {
                 
                 setOrders(querySnapshot.docs.map(doc => ({
@@ -26,7 +26,7 @@ function Orders() {
     },[user])
     console.log("current orders is ", orders)  
   return (
-        <div className='orders'>
+        <OrdersStyled>
             <h1>Your Orders</h1>
 
             <div className='orders__order'>
@@ -34,7 +34,7 @@ function Orders() {
                     <Order order={order} />
                 ))}
             </div>
-        </div>
+        </OrdersStyled>
   )
 }
 

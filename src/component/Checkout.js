@@ -1,29 +1,40 @@
-import React from 'react'
+import React, {useState} from 'react'
 import Subtotal from "./Subtotal"
 import CheckoutProduct from './CheckoutProduct.js'
 import { useStateValue } from '../StateProvider.js'
-import { CheckoutTitle, CheckoutStyled, CheckoutImage } from "./styled/Checkout.styled"
+import { CheckoutLeft, CheckoutRight, UserHeading, CheckoutTitle, CheckoutStyled, CheckoutImage } from "./styled/Checkout.styled"
+import { Link } from 'react-router-dom'
 
 
 function Checkout() {
-  const [{user, basket}, dispatch] = useStateValue()
+  const [{user, basket}, dispatch] = useStateValue();
+  const [removeAll, setRemoveAll] = useState(false)
+
+  const removeFromBasket = (id) => {
+    dispatch({
+        type:'EMPTY_BASKET',
+    })
+    console.log(id)
+  }
+
   return (
     <CheckoutStyled>
-        <div>
-          <CheckoutImage src="https://m.media-amazon.com/images/I/61DUO0NqyyL._SX3000_.jpg" alt=""/>
+        <CheckoutLeft>
+          <CheckoutImage src= "https://images-na.ssl-images-amazon.com/images/G/02/UK_CCMP/TM/OCC_Amazon1._CB423492668_.jpg" alt=""/>
           <div>
-            <h3>Hello, {user?.email}</h3>
-            <CheckoutTitle>Your shopping basket</CheckoutTitle>
-              {basket.map((item, index) => { return (
-              <CheckoutProduct
-              id={index}
-              item={item}
-              />)})}
+            <UserHeading>Hello, {user?.email}</UserHeading>
+            <CheckoutTitle>Shopping Cart</CheckoutTitle>
+            {!removeAll && <Link onClick={() => {removeFromBasket(); setRemoveAll(true)}} to="/checkout">remove all items</Link>}
+            {basket.map((item, index) => { return (
+            <CheckoutProduct
+            id={index}
+            item={item}
+            />)})}
           </div>
-        </div>
-        <div>
+        </CheckoutLeft>
+        <CheckoutRight>
             <Subtotal/>
-        </div>
+        </CheckoutRight>
     </CheckoutStyled>
   )
 }
