@@ -78,7 +78,6 @@ export default function Home () {
     return (
         <HomeStyled>  
             <BgImage src= "https://m.media-amazon.com/images/I/711Y9Al9RNL._SX3000_.jpg" alt=""/>
-            {fetchError && <h1>Refresh page, refresh page...</h1>}
             <CategoryFlex>
                 {categories.map((category, index) =>
                  <Product

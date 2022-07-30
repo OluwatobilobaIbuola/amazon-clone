@@ -13,7 +13,7 @@ function Product({title, rating, image, price, description, hideElement, catgyTi
       setBrowserWidth(width);
       console.log("browserwidth after render >>> ", browserWidth);
     }) 
-  }, [])
+  }, []);
 
  
   const hoverEffect = () => {
